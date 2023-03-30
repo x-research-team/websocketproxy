@@ -58,7 +58,6 @@ func NewProxy(target *url.URL) *WebsocketProxy {
 		// Shallow copy
 		u := *target
 		u.Fragment = r.URL.Fragment
-		u.Path = r.URL.Path
 		u.RawQuery = r.URL.RawQuery
 		return &u
 	}
@@ -156,6 +155,8 @@ func (w *WebsocketProxy) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	if w.Upgrader == nil {
 		upgrader = DefaultUpgrader
 	}
+
+	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
 	// Only pass those headers to the upgrader.
 	upgradeHeader := http.Header{}
