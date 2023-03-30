@@ -1,4 +1,4 @@
-module github.com/x-research-team/websocket
+module github.com/x-research-team/websocketproxy
 
 go 1.20
 
